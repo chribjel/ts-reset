@@ -42,6 +42,13 @@ doNotExecute(() => {
 });
 
 doNotExecute(() => {
+  // create a something that is a symbol
+  const result = JSON.stringify(Symbol("hello"));
+
+  type tests = [Expect<Equal<typeof result, undefined>>];
+});
+
+doNotExecute(() => {
   // create a something that is a function
   const result = JSON.stringify(function (hello: any, world: any) {});
 
@@ -57,7 +64,15 @@ doNotExecute(() => {
 });
 
 doNotExecute(() => {
+  // create a something that is a string
   const result = JSON.stringify("undefined");
+
+  type tests = [Expect<Equal<typeof result, string>>];
+});
+
+doNotExecute(() => {
+  // create a something that is a Date object
+  const result = JSON.stringify(new Date());
 
   type tests = [Expect<Equal<typeof result, string>>];
 });
