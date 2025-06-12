@@ -6,7 +6,7 @@ interface JSON {
    * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
    */
   stringify(
-    value: undefined | ((..._: any) => any) | symbol,
+    value: any,
     replacer: (
       this: any,
       key: string,
@@ -16,27 +16,7 @@ interface JSON {
   ): undefined;
 
   stringify(
-    value: undefined | ((..._: any) => any) | symbol,
-    replacer: (
-      this: any,
-      key: string,
-      value: any,
-    ) => string | number | boolean | bigint | object | null,
-    space?: string | number,
-  ): string;
-
-  stringify(
-    value: string | number | boolean | bigint | object | null,
-    replacer: (
-      this: any,
-      key: string,
-      value: any,
-    ) => undefined | ((..._: any) => any) | symbol,
-    space?: string | number,
-  ): undefined;
-
-  stringify(
-    value: string | number | boolean | bigint | object | null,
+    value: any,
     replacer: (
       this: any,
       key: string,
