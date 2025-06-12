@@ -96,7 +96,7 @@ doNotExecute(() => {
 });
 
 doNotExecute(() => {
-  const result = JSON.stringify("foo", () => Symbol("hello")); // function
+  const result = JSON.stringify("foo", () => Symbol("hello")); // symbol
 
   type tests = [Expect<Equal<typeof result, undefined>>];
 });
