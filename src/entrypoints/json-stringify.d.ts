@@ -14,8 +14,8 @@ interface JSON {
       ? undefined
       : string
     : T extends undefined
-    ? undefined
-    : string | undefined;
+      ? undefined
+      : string | undefined;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string or undefined.
    * @param value A JavaScript value, usually an object or array, to be converted.
@@ -31,6 +31,6 @@ interface JSON {
       ? undefined
       : string
     : T extends undefined
-    ? undefined
-    : string | undefined;
+      ? undefined
+      : string | undefined;
 }
