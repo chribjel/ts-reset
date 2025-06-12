@@ -76,3 +76,34 @@ doNotExecute(() => {
 
   type tests = [Expect<Equal<typeof result, string>>];
 });
+
+doNotExecute(() => {
+  const result = JSON.stringify(undefined, () => "foo"); // '"foo"'
+
+  type tests = [Expect<Equal<typeof result, string>>];
+});
+
+doNotExecute(() => {
+  const result = JSON.stringify("foo", () => undefined); // undefined
+
+  type tests = [Expect<Equal<typeof result, undefined>>];
+});
+
+doNotExecute(() => {
+  const result = JSON.stringify("foo", () => function () {}); // function
+
+  type tests = [Expect<Equal<typeof result, undefined>>];
+});
+
+doNotExecute(() => {
+  const result = JSON.stringify("foo", () => Symbol("hello")); // function
+
+  type tests = [Expect<Equal<typeof result, undefined>>];
+});
+
+doNotExecute(() => {
+  const anyFunc: () => any = () => "foo";
+  const result = JSON.stringify("foo", anyFunc);
+
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
+});
