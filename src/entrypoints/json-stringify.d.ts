@@ -39,31 +39,13 @@ interface JSON {
    * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
    */
   stringify(
-    value: { toJSON: () => undefined | ((..._: any) => any) | symbol },
+    value: undefined | symbol,
     replacer?: (number | string)[] | null,
     space?: string | number,
   ): undefined;
 
   stringify(
-    value: { toJSON: () => string | number | boolean | bigint | object | null },
-    replacer?: (number | string)[] | null,
-    space?: string | number,
-  ): string;
-
-  stringify(
-    value: { toJSON: () => any },
-    replacer?: (number | string)[] | null,
-    space?: string | number,
-  ): string | undefined;
-
-  stringify(
-    value: undefined | ((..._: any) => any) | symbol,
-    replacer?: (number | string)[] | null,
-    space?: string | number,
-  ): undefined;
-
-  stringify(
-    value: string | number | boolean | bigint | object | null,
+    value: string | number | boolean | bigint | null,
     replacer?: (number | string)[] | null,
     space?: string | number,
   ): string;

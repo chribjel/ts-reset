@@ -3,7 +3,7 @@ import { doNotExecute, Equal, Expect } from "./utils";
 doNotExecute(() => {
   const result = JSON.stringify({});
 
-  type tests = [Expect<Equal<typeof result, string>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -23,7 +23,7 @@ doNotExecute(() => {
   let toBeStringified: {} | null = Math.random() > 0.5 ? {} : null;
   const result = JSON.stringify(toBeStringified);
 
-  type tests = [Expect<Equal<typeof result, string>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -38,7 +38,19 @@ doNotExecute(() => {
   // create a something that is a function
   const result = JSON.stringify(function () {});
 
-  type tests = [Expect<Equal<typeof result, undefined>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
+});
+
+doNotExecute(() => {
+  function hello() {}
+  function addToJSONtoFunction(func: any) {
+    func.toJSON = () => "foo";
+  }
+  addToJSONtoFunction(hello);
+
+  const result = JSON.stringify(hello);
+
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -52,7 +64,7 @@ doNotExecute(() => {
   // create a something that is a function
   const result = JSON.stringify(function (hello: any, world: any) {});
 
-  type tests = [Expect<Equal<typeof result, undefined>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -74,7 +86,7 @@ doNotExecute(() => {
   // create a something that is a Date object
   const result = JSON.stringify(new Date());
 
-  type tests = [Expect<Equal<typeof result, string>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -115,7 +127,7 @@ doNotExecute(() => {
   };
   const result = JSON.stringify(objWithToJSON);
 
-  type tests = [Expect<Equal<typeof result, undefined>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -125,7 +137,7 @@ doNotExecute(() => {
   };
   const result = JSON.stringify(objWithToJSON);
 
-  type tests = [Expect<Equal<typeof result, string>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -135,7 +147,7 @@ doNotExecute(() => {
   };
   const result = JSON.stringify(objWithToJSON);
 
-  type tests = [Expect<Equal<typeof result, undefined>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -145,7 +157,7 @@ doNotExecute(() => {
   functionWithToJSON.toJSON = () => "foo";
   const result = JSON.stringify(functionWithToJSON);
 
-  type tests = [Expect<Equal<typeof result, string>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
 
 doNotExecute(() => {
@@ -163,5 +175,5 @@ doNotExecute(() => {
   // Date has a toJSON method
   const result = JSON.stringify(new Date());
 
-  type tests = [Expect<Equal<typeof result, string>>];
+  type tests = [Expect<Equal<typeof result, string | undefined>>];
 });
