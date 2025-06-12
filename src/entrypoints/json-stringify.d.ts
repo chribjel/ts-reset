@@ -11,32 +11,6 @@ interface JSON {
       this: any,
       key: string,
       value: any,
-    ) => { toJSON: () => undefined | ((..._: any) => any) | symbol },
-    space?: string | number,
-  ): undefined;
-
-  stringify(
-    value: any,
-    replacer: (
-      this: any,
-      key: string,
-      value: any,
-    ) => { toJSON: () => string | number | boolean | bigint | object | null },
-    space?: string | number,
-  ): string;
-
-  stringify(
-    value: any,
-    replacer: (this: any, key: string, value: any) => { toJSON: () => any },
-    space?: string | number,
-  ): string | undefined;
-
-  stringify(
-    value: any,
-    replacer: (
-      this: any,
-      key: string,
-      value: any,
     ) => undefined | ((..._: any) => any) | symbol,
     space?: string | number,
   ): undefined;

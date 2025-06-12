@@ -119,6 +119,26 @@ doNotExecute(() => {
 });
 
 doNotExecute(() => {
+  const objWithToJSON = {
+    hello: "world",
+    toJSON: () => "foo",
+  };
+  const result = JSON.stringify(objWithToJSON);
+
+  type tests = [Expect<Equal<typeof result, string>>];
+});
+
+doNotExecute(() => {
+  const objWithToJSON = {
+    hello: "world",
+    toJSON: () => undefined,
+  };
+  const result = JSON.stringify(objWithToJSON);
+
+  type tests = [Expect<Equal<typeof result, undefined>>];
+});
+
+doNotExecute(() => {
   function functionWithToJSON() {
     return "world";
   }
@@ -129,15 +149,6 @@ doNotExecute(() => {
 });
 
 doNotExecute(() => {
-  // object with toJSON method returning undefined
-  const result = JSON.stringify("foo", () => ({
-    toJSON: () => undefined,
-  }));
-
-  type tests = [Expect<Equal<typeof result, undefined>>];
-});
-
-doNotExecute(() => {
   function functionWithToJSON() {
     return "world";
   }
@@ -145,10 +156,11 @@ doNotExecute(() => {
 
   const result = JSON.stringify("foo", () => functionWithToJSON);
 
-  type tests = [Expect<Equal<typeof result, string>>];
+  type tests = [Expect<Equal<typeof result, undefined>>];
 });
 
 doNotExecute(() => {
+  // Date has a toJSON method
   const result = JSON.stringify(new Date());
 
   type tests = [Expect<Equal<typeof result, string>>];
